@@ -30,18 +30,11 @@ import { TechDocsStateIndicator } from '../TechDocsStateIndicator';
 
 import { useTechDocsReader, TechDocsReaderProvider } from './context';
 
-const useStyles = makeStyles<BackstageTheme>(theme => ({
+const useStyles = makeStyles<BackstageTheme>({
   searchBar: {
-    maxWidth: 'calc(100% - 16rem * 2 - 2.4rem)',
-    marginTop: 0,
-    marginBottom: theme.spacing(1),
-    marginLeft: 'calc(16rem + 1.2rem)',
-    '@media screen and (max-width: 76.1875em)': {
-      marginLeft: '0',
-      maxWidth: '100%',
-    },
+    margin: '0 auto',
   },
-}));
+});
 
 type TechDocsReaderPageProps = PropsWithChildren<{
   withSearch?: boolean;
@@ -76,7 +69,7 @@ const TechDocsReaderPage = ({
       {content && (
         <>
           {withSearch && (
-            <Grid className={classes.searchBar} xs={12} item>
+            <Grid className={classes.searchBar} xs={12} sm={12} md={8} item>
               <TechDocsSearch entityId={entityRef} />
             </Grid>
           )}

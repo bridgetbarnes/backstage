@@ -56,6 +56,7 @@
     "@backstage/plugin-search-backend-module-elasticsearch": "^0.1.2",
     "@backstage/plugin-search-backend-module-pg": "^0.3.1",
     "@backstage/plugin-techdocs-backend": "^1.0.0",
+    "@backstage/plugin-techdocs-module-mdx-node": "^0.0.1",
     "@backstage/plugin-tech-insights-backend": "^0.2.10",
     "@backstage/plugin-tech-insights-node": "^0.2.8",
     "@backstage/plugin-tech-insights-backend-module-jsonfc": "^0.1.14",

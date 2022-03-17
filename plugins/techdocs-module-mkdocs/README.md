@@ -2,9 +2,6 @@
 
 A front-end implementation for TechDocs reader page using [mkdocs](https://www.mkdocs.org/).
 
-> **Note:**
-> This plugin expects you to have implemented a TechDocs Storage API that returns the HTML built with mkdocs, see how to do that [here](https://backstage.io/docs/features/techdocs/getting-started#adding-techdocs-backend-plugin).
-
 ## Getting started
 
 This plugin has been added to the example app in this repository, meaning you'll be able to access it by running `yarn start` in the root directory, and then navigating to [/techdocs-mkdocs](http://localhost:3000/techdocs-mkdocs).

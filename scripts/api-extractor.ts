@@ -263,6 +263,9 @@ const NO_WARNING_PACKAGES = [
   'plugins/tech-insights-common',
   'plugins/tech-insights-node',
   'plugins/techdocs',
+  'plugins/techdocs-mkdocs',
+  'plugins/techdocs-mdx',
+  'plugins/techdocs-mdx-node',
   'plugins/todo',
   'plugins/todo-backend',
 ];

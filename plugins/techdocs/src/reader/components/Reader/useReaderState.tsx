@@ -22,6 +22,8 @@ import {
   useEntityDocsSync,
 } from '../TechDocsEntityDocsSync';
 
+import { TechDocsMetadata } from '../../../types';
+
 /**
  * A state representation that is used to configure the UI of <Reader />
  */
@@ -76,6 +78,7 @@ export const computeStatus = (
 
 export type TechDocsState = {
   path: string;
+  metadata?: TechDocsMetadata;
   status: ContentStateTypes;
   content?: string;
   contentReload: () => void;
@@ -103,6 +106,7 @@ export const useTechDocsState = (): TechDocsState => {
     state: status,
     buildLog: entityDocsSync.log,
     path: readerPage.path,
+    metadata: readerPage.metadata.value,
     content: entityDocs.value,
     contentReload: entityDocs.retry,
     contentErrorMessage: entityDocs.error?.toString(),
