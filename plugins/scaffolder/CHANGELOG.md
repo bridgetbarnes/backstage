@@ -1,5 +1,14 @@
 # @backstage/plugin-scaffolder
 
+## 1.0.1-next.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @backstage/plugin-catalog-common@1.0.1-next.1
+  - @backstage/plugin-catalog-react@1.0.1-next.1
+  - @backstage/plugin-permission-react@0.3.5-next.0
+
 ## 1.0.1-next.0
 
 ### Patch Changes
