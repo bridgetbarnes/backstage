@@ -90,6 +90,7 @@ describe('DocsSynchronizer', () => {
       publisher,
       config: new ConfigReader({}),
       logger: getVoidLogger(),
+      buildLogger: getVoidLogger(),
       scmIntegrations: ScmIntegrations.fromConfig(new ConfigReader({})),
       cache,
     });
@@ -289,6 +290,7 @@ describe('DocsSynchronizer', () => {
           techdocs: { legacyUseCaseSensitiveTripletPaths: true },
         }),
         logger: getVoidLogger(),
+        buildLogger: getVoidLogger(),
         scmIntegrations: ScmIntegrations.fromConfig(new ConfigReader({})),
         cache,
       });
@@ -320,6 +322,43 @@ describe('DocsSynchronizer', () => {
       });
 
       expect(mockResponseHandler.finish).toBeCalledWith({ updated: false });
+    });
+
+    it('should inject another logger for build logs', async () => {
+      (shouldCheckForUpdate as jest.Mock).mockReturnValue(true);
+
+      MockedDocsBuilder.prototype.build.mockImplementation(async () => {
+        // The DocsBuilder logger has both streams
+        const buildLogStream =
+          MockedDocsBuilder.mock.calls[0][0].logger.transports[1];
+
+        buildLogStream?.write('Some log');
+        buildLogStream?.write('Another log');
+        return true;
+      });
+
+      publisher.hasDocsBeenGenerated.mockResolvedValue(true);
+
+      await docsSynchronizer.doSync({
+        responseHandler: mockResponseHandler,
+        entity,
+        preparers,
+        generators,
+      });
+
+      expect(mockResponseHandler.log).toBeCalledTimes(3);
+      expect(mockResponseHandler.log).toBeCalledWith('Some log');
+      expect(mockResponseHandler.log).toBeCalledWith('Another log');
+      expect(mockResponseHandler.log).toBeCalledWith(
+        expect.stringMatching(/info.*Some more log/),
+      );
+
+      expect(mockResponseHandler.finish).toBeCalledWith({ updated: true });
+
+      expect(mockResponseHandler.error).toBeCalledTimes(0);
+
+      expect(shouldCheckForUpdate).toBeCalledTimes(1);
+      expect(DocsBuilder.prototype.build).toBeCalledTimes(1);
     });
   });
 });

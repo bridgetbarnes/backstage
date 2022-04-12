@@ -30,7 +30,7 @@ import {
 import express, { Response } from 'express';
 import Router from 'express-promise-router';
 import { Knex } from 'knex';
-import { createLogger, Logger } from 'winston';
+import { getVoidLogger } from '@backstage/backend-common';
 import { ScmIntegrations } from '@backstage/integration';
 import { DocsSynchronizer, DocsSynchronizerSyncOpts } from './DocsSynchronizer';
 import { createCacheMiddleware, TechDocsCache } from '../cache';
@@ -109,11 +109,7 @@ export async function createRouter(
   const catalogClient = new CatalogClient({ discoveryApi: discovery });
   const docsBuildStrategy =
     options.docsBuildStrategy ?? DefaultDocsBuildStrategy.fromConfig(config);
-  const buildLogger =
-    options.buildLogger ??
-    createLogger({
-      silent: true,
-    });
+  const buildLogger = options.buildLogger ?? getVoidLogger();
 
   // Entities are cached to optimize the /static/docs request path, which can be called many times
   // when loading a single techdocs page.
